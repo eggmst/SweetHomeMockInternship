@@ -49,7 +49,7 @@ import com.eteks.sweethome3d.model.UserPreferences;
  */
 public class ImportedFurnitureWizardController extends WizardController 
                                                implements Controller {
-  public enum Property {STEP, NAME, MODEL, WIDTH, DEPTH, HEIGHT, ELEVATION, MOVABLE, 
+  public enum Property {STEP, NAME, MODEL, WIDTH, DEPTH, HEIGHT, VOLUME, ELEVATION, MOVABLE,
       DOOR_OR_WINDOW, COLOR, CATEGORY, BACK_FACE_SHOWN, MODEL_ROTATION, STAIRCASE_CUT_OUT_SHAPE,
       ICON_YAW, PROPORTIONAL}
 
@@ -79,6 +79,7 @@ public class ImportedFurnitureWizardController extends WizardController
   private float                            proportionalDepth;
   private float                            height;
   private float                            proportionalHeight;
+  private float                            volume;
   private float                            elevation;
   private boolean                          movable;
   private boolean                          doorOrWindow;
@@ -188,13 +189,13 @@ public class ImportedFurnitureWizardController extends WizardController
     CatalogPieceOfFurniture newPiece;
     if (isDoorOrWindow()) {
       newPiece = new CatalogDoorOrWindow(getName(), getIcon(), getModel(), 
-          getWidth(), getDepth(), getHeight(), getElevation(), 
+          getWidth(), getDepth(), getHeight(), getElevation(),
           isMovable(), 1, 0, new Sash [0], getColor(), 
           getModelRotation(), isBackFaceShown(), 
           getIconYaw(), isProportional());
     } else {
       newPiece = new CatalogPieceOfFurniture(getName(), getIcon(), getModel(), 
-          getWidth(), getDepth(), getHeight(), getElevation(), 
+          getWidth(), getDepth(), getHeight(), getElevation(),
           isMovable(), getStaircaseCutOutShape(), 
           getColor(), getModelRotation(), isBackFaceShown(), 
           getIconYaw(), isProportional());
@@ -544,6 +545,11 @@ public class ImportedFurnitureWizardController extends WizardController
       this.propertyChangeSupport.firePropertyChange(Property.HEIGHT.name(), oldHeight, adjustedHeight);
     }
   }
+
+  /**
+   * Returns the volume of the imported piece.
+   */
+  public float getVolume() { return this.volume; }
 
   /**
    * Returns the elevation of the imported piece.

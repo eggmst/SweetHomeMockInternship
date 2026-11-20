@@ -708,7 +708,7 @@ public class ModelPreviewComponent extends JComponent {
               this.previewedPiece.getWidth(), 
               this.previewedPiece.getDepth(),
               this.previewedPiece.getHeight(),
-              0, false, this.previewedPiece.getColor(), 
+              0, false, this.previewedPiece.getColor(),
               this.previewedPiece.getModelRotation(), backFaceShown, 0, false));
       this.previewedPiece.setX(0);
       this.previewedPiece.setY(0);

@@ -5964,6 +5964,7 @@ public class PlanController extends FurnitureController implements Controller {
     private final float                width;
     private final float                depth;
     private final float                height;
+    private final float                volume;
     private final boolean              doorOrWindowBoundToWall;
     private final float []             groupFurnitureX;
     private final float []             groupFurnitureY;
@@ -5978,6 +5979,7 @@ public class PlanController extends FurnitureController implements Controller {
       this.width = piece.getWidth();
       this.depth = piece.getDepth();
       this.height = piece.getHeight();
+      this.volume = piece.getVolume();
       this.doorOrWindowBoundToWall = piece instanceof HomeDoorOrWindow 
           && ((HomeDoorOrWindow)piece).isBoundToWall();
       if (piece instanceof HomeFurnitureGroup) {
@@ -6019,6 +6021,8 @@ public class PlanController extends FurnitureController implements Controller {
     public float getHeight() {
       return this.height;
     }
+
+    public float getVolume() { return this.width * this.depth * this.height; }
     
     public boolean isDoorOrWindowBoundToWall() {
       return this.doorOrWindowBoundToWall;

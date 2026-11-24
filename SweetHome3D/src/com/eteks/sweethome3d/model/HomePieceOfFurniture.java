@@ -599,6 +599,22 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
   public float getVolume() { return this.volume; }
 
   /**
+   * Recalculates the volume of this piece of furniture.
+   */
+  public void refreshVolume(float vol) {
+    if (isResizable()) {
+      if (vol != this.volume) {
+        float oldVol = this.volume;
+        this.volume = vol;
+        this.shapeCache = null;
+        this.propertyChangeSupport.firePropertyChange(Property.VOLUME.name(), oldVol, vol);
+      }
+    } else {
+      throw new IllegalStateException("Piece isn't resizable");
+    }
+  }
+
+  /**
    * Returns the elevation of the bottom of this piece of furniture on its level. 
    */
   public float getElevation() {

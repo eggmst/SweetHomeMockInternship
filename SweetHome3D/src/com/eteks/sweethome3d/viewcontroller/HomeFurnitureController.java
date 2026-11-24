@@ -1383,6 +1383,8 @@ public class HomeFurnitureController implements Controller {
         if (height != null) {
           piece.setHeight(height);
         }
+        piece.refreshVolume(width * depth * height);
+
         if (modelMirrored != null) {
           piece.setModelMirrored(modelMirrored);
         }
@@ -1453,7 +1455,7 @@ public class HomeFurnitureController implements Controller {
     private final float                width;
     private final float                depth;
     private final float                height;
-    private final float                volume;
+    private float                      volume;
     private final Integer              color;
     private final HomeTexture          texture;
     private final HomeMaterial []      modelMaterials;
@@ -1487,7 +1489,7 @@ public class HomeFurnitureController implements Controller {
     public HomePieceOfFurniture getPieceOfFurniture() {
       return this.piece;
     }
-        
+
     public void reset() {
       this.piece.setName(this.name);
       this.piece.setNameVisible(this.nameVisible);

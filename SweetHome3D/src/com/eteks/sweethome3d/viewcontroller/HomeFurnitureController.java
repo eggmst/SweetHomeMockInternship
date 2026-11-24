@@ -398,7 +398,17 @@ public class HomeFurnitureController implements Controller {
         }
       }
       setHeight(height, true, false);
-      // TODO: need set volume?
+
+      Float volume = firstPiece.getVolume();
+
+      for (int i = 1; i < selectedFurniture.size(); i++) {
+        if (Float.compare(volume, selectedFurniture.get(i).getVolume()) != 0) {
+          volume = null;
+          break;
+        }
+      }
+      refreshVolume(volume);
+
 
       List<HomePieceOfFurniture> selectedFurnitureWithoutGroups = getFurnitureWithoutGroups(selectedFurniture);
       HomePieceOfFurniture firstPieceExceptGroup = selectedFurnitureWithoutGroups.get(0);
@@ -960,9 +970,24 @@ public class HomeFurnitureController implements Controller {
     return this.height;
   }
 
-  public Float getVolume() { return this.height * this.width * this.depth; }
+  /**
+   * Returns the refreshed volume.
+   */
+  public Float getVolume() { return this.volume; }
 
   /**
+   * Set the refreshed volume.
+   */
+  public void refreshVolume(float vol) {
+    if (vol != this.volume) {
+    Float oldVol = this.volume;
+    this.volume = vol;
+    this.propertyChangeSupport.firePropertyChange(Property.VOLUME.name(), oldVol, vol);
+  }
+}
+
+
+/**
    * Sets whether furniture proportions should be kept.
    */
   public void setProportional(boolean proportional) {
@@ -1168,7 +1193,7 @@ public class HomeFurnitureController implements Controller {
       Float width = getWidth();
       Float depth = getDepth();
       Float height = getHeight();
-      Float volume = getVolume();
+      Float volume = width * depth * height;
       FurniturePaint paint = getPaint();
       Integer color = paint == FurniturePaint.COLORED 
           ? getColor() 
@@ -1309,7 +1334,7 @@ public class HomeFurnitureController implements Controller {
     public void undo() throws CannotUndoException {
       super.undo();
       undoModifyFurniture(this.modifiedFurniture);
-      this.home.setSelectedItems(this.oldSelection); 
+      this.home.setSelectedItems(this.oldSelection);
     }
 
     @Override
@@ -1383,7 +1408,6 @@ public class HomeFurnitureController implements Controller {
         if (height != null) {
           piece.setHeight(height);
         }
-        piece.refreshVolume(width * depth * height);
 
         if (modelMirrored != null) {
           piece.setModelMirrored(modelMirrored);
@@ -1477,7 +1501,7 @@ public class HomeFurnitureController implements Controller {
       this.width = piece.getWidth();
       this.depth = piece.getDepth();
       this.height = piece.getHeight();
-      this.volume = piece.getVolume();
+      this.volume = this.width * this.depth * this.height;
       this.color = piece.getColor();
       this.texture = piece.getTexture();
       this.modelMaterials = piece.getModelMaterials();

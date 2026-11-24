@@ -542,6 +542,7 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
     } else {
       throw new IllegalStateException("Piece isn't resizable");
     }
+    refreshVolume();
   }
 
   /**
@@ -566,6 +567,7 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
     } else {
       throw new IllegalStateException("Piece isn't resizable");
     }
+    refreshVolume();
   }
 
   /**
@@ -591,6 +593,7 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
     } else {
       throw new IllegalStateException("Piece isn't resizable");
     }
+    refreshVolume();
   }
 
   /**
@@ -601,8 +604,9 @@ public class HomePieceOfFurniture extends HomeObject implements PieceOfFurniture
   /**
    * Recalculates the volume of this piece of furniture.
    */
-  public void refreshVolume(float vol) {
+  public void refreshVolume() {
     if (isResizable()) {
+      float vol = this.width * this.height * this.depth;
       if (vol != this.volume) {
         float oldVol = this.volume;
         this.volume = vol;

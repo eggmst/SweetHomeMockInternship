@@ -400,14 +400,13 @@ public class HomeFurnitureController implements Controller {
       setHeight(height, true, false);
 
       Float volume = firstPiece.getVolume();
-
       for (int i = 1; i < selectedFurniture.size(); i++) {
-        if (Float.compare(volume, selectedFurniture.get(i).getVolume()) != 0) {
+        if (volume.floatValue() != selectedFurniture.get(i).getVolume()) {
           volume = null;
           break;
         }
       }
-      refreshVolume(volume);
+      setVolume(height, width, depth);
 
 
       List<HomePieceOfFurniture> selectedFurnitureWithoutGroups = getFurnitureWithoutGroups(selectedFurniture);
@@ -976,16 +975,28 @@ public class HomeFurnitureController implements Controller {
   public Float getVolume() { return this.volume; }
 
   /**
-   * Set the refreshed volume.
+   * Sets the edited volume.
    */
-  public void refreshVolume(float vol) {
-    if (vol != this.volume) {
-    Float oldVol = this.volume;
-    this.volume = vol;
-    this.propertyChangeSupport.firePropertyChange(Property.VOLUME.name(), oldVol, vol);
-  }
-}
+  public void setVolume(Float h, Float w, Float d) {
+    if (h == null || w == null || d == null) {
+      Float oldVol = this.volume;
+      this.volume = null;
 
+      if (oldVol != null) {
+        this.propertyChangeSupport.firePropertyChange(
+                Property.VOLUME.name(), oldVol, null);
+      }
+      return;
+    }
+
+    if (this.volume == null || Float.compare(h * d * w, this.volume) != 0) {
+      Float oldVol = this.volume;
+      this.volume = h * d * w;
+
+      this.propertyChangeSupport.firePropertyChange(
+              Property.VOLUME.name(), oldVol, volume);
+    }
+  }
 
 /**
    * Sets whether furniture proportions should be kept.

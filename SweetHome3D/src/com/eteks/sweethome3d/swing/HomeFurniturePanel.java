@@ -80,8 +80,8 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   private JSpinner                depthSpinner;
   private JLabel                  heightLabel;
   private JSpinner                heightSpinner;
-  private JLabel                  volumeLabel;
-  private JSpinner                volumeSpinner;
+//  private JLabel                  volumeLabel;
+//  private JSpinner                volumeSpinner;
   private JCheckBox               keepProportionsCheckBox;
   private NullableCheckBox        mirroredModelCheckBox;
   private JRadioButton            defaultColorAndTextureRadioButton;
@@ -467,14 +467,13 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
         });
     }
 
-    // TODO: see if need to keep, originally gonna add spinner and stuff for volume but don't think that's right
     if (controller.isPropertyEditable(HomeFurnitureController.Property.VOLUME)) {
       // Create volume label and its spinner bound to VOLUME controller property
-      this.volumeLabel = new JLabel(SwingTools.getLocalizedLabelText(preferences, HomeFurniturePanel.class,
-              "volumeLabel.text", unitName));
+//      this.volumeLabel = new JLabel(SwingTools.getLocalizedLabelText(preferences, HomeFurniturePanel.class,
+//              "volumeLabel.text", unitName));
       final NullableSpinner.NullableSpinnerLengthModel volumeSpinnerModel = new NullableSpinner.NullableSpinnerLengthModel(
               preferences, minimumLength, maximumLength);
-      this.volumeSpinner = new NullableSpinner(volumeSpinnerModel);
+//      this.volumeSpinner = new NullableSpinner(volumeSpinnerModel);
       final PropertyChangeListener volumeChangeListener = new PropertyChangeListener() {
         public void propertyChange(PropertyChangeEvent ev) {
           Float volume = controller.getVolume();
@@ -883,11 +882,11 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
             preferences.getLocalizedString(HomeFurniturePanel.class, "heightLabel.mnemonic")).getKeyCode());
         this.heightLabel.setLabelFor(this.heightSpinner);
       }
-      if (this.volumeLabel != null) {
-        this.volumeLabel.setDisplayedMnemonic(KeyStroke.getKeyStroke(
-            preferences.getLocalizedString(HomeFurniturePanel.class, "volumeLabel.mnemonic")).getKeyCode());
-        this.volumeLabel.setLabelFor(this.volumeSpinner);
-      }
+//      if (this.volumeLabel != null) {
+//        this.volumeLabel.setDisplayedMnemonic(KeyStroke.getKeyStroke(
+//            preferences.getLocalizedString(HomeFurniturePanel.class, "volumeLabel.mnemonic")).getKeyCode());
+//        this.volumeLabel.setLabelFor(this.volumeSpinner);
+//      }
       if (this.basePlanItemCheckBox != null) {
         this.basePlanItemCheckBox.setMnemonic(KeyStroke.getKeyStroke(
             preferences.getLocalizedString(HomeFurniturePanel.class, "basePlanItemCheckBox.mnemonic")).getKeyCode());
@@ -1038,14 +1037,14 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
           1, 1, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
           GridBagConstraints.NONE, rightComponentInsets, -10, 0));
     }
-    if (this.volumeLabel != null) {
-      sizePanel.add(this.volumeLabel, new GridBagConstraints(
-              0, 1, 1, 1, 0, 0, labelAlignment,
-              GridBagConstraints.NONE, labelInsets, 0, 0));
-      sizePanel.add(this.volumeSpinner, new GridBagConstraints(
-              1, 1, 1, 1, 0, 0, GridBagConstraints.LINE_START,
-              GridBagConstraints.NONE, rightComponentInsets, -10, 0));
-    }
+//    if (this.volumeLabel != null) {
+//      sizePanel.add(this.volumeLabel, new GridBagConstraints(
+//              0, 1, 1, 1, 0, 0, labelAlignment,
+//              GridBagConstraints.NONE, labelInsets, 0, 0));
+//      sizePanel.add(this.volumeSpinner, new GridBagConstraints(
+//              1, 1, 1, 1, 0, 0, GridBagConstraints.LINE_START,
+//              GridBagConstraints.NONE, rightComponentInsets, -10, 0));
+//    }
     if (this.heightLabel != null) {
       sizePanel.add(this.heightLabel, new GridBagConstraints(
           0, 2, 1, 1, 0, 0, labelAlignment, 
